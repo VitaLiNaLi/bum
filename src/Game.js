@@ -6,6 +6,8 @@ const Hero = require("./game-models/Hero");
 const Enemy = require("./game-models/Enemy");
 // const Boomerang = require('./game-models/Boomerang');
 const View = require("./View");
+const Key = require("./keyboard");
+const keypress = require("keypress");
 
 // Основной класс игры.
 // Тут будут все настройки, проверки, запуск.
@@ -23,7 +25,7 @@ class Game {
   regenerateTrack() {
     // Сборка всего необходимого (герой, враг(и), оружие)
     // в единую структуру данных
-    this.track = new Array(this.trackLength).fill("_");
+    this.track = new Array(this.trackLength).fill(" ");
     this.track[this.hero.position] = this.hero.skin;
   }
 
@@ -39,7 +41,8 @@ class Game {
       this.check();
       this.regenerateTrack();
       this.view.render(this.track);
-    });
+      Key.runInteractiveConsole(this.hero.position);
+    }, 1000);
   }
 }
 
